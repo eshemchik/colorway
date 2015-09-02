@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="levelsCount">30</integer>
+    <integer name="levelsCount">40</integer>
 
     <string-array name="levels" translatable="false">
         <item>{"min_score":0,"size":5,"limits":[4,3,2],"counters":[2,2],"bases":[6,8,16,18]}</item>
@@ -30,11 +30,19 @@
         <item>{"min_score":57,"size":10,"limits":[46,44,42],"counters":[3,3,2,3],"bases":[23,16,26,73,21,86,4,71,83,15,60]}</item>
         <item>{"min_score":60,"size":9,"limits":[48,46,44],"counters":[2,3,2,2],"bases":[34,63,66,19,30,56,12,6,75]}</item>
         <item>{"min_score":62,"size":10,"limits":[51,49,47],"counters":[3,3,3,3],"bases":[99,49,88,26,39,42,98,25,34,13,87,73]}</item>
-        <item>{"min_score":64,"size":7,"limits":[56,53,50],"counters":[3,2,2,3],"bases":[32,20,40,13,48,36,39,24,35,37]}</item>
-        <item>{"min_score":67,"size":7,"limits":[56,53,50],"counters":[2,2,2],"bases":[4,36,0,41,33,29]}</item>
-        <item>{"min_score":69,"size":8,"limits":[56,53,50],"counters":[3,2,3,3],"bases":[28,44,38,56,16,7,29,6,24,31,4]}</item>
+        <item>{"min_score":72,"size":9,"limits":[26,25,24],"counters":[4,3,2,4],"bases":[55,60,6,42,68,77,67,21,66,16,53,32,7]}</item>
+        <item>{"min_score":75,"size":8,"limits":[32,30,28],"counters":[2,2,4,4],"bases":[56,45,3,28,17,14,27,15,43,11,12,49]}</item>
+        <item>{"min_score":78,"size":9,"limits":[35,33,31],"counters":[2,3,4,4],"bases":[57,1,48,61,59,44,4,65,53,14,46,32,41]}</item>
+        <item>{"min_score":81,"size":9,"limits":[37,35,33],"counters":[2,3,3,3,2],"bases":[16,44,47,57,80,54,12,45,58,69,63,41,77]}</item>
+        <item>{"min_score":83,"size":9,"limits":[39,37,35],"counters":[2,3,4,2],"bases":[1,19,51,45,71,64,42,70,11,9,57]}</item>
+        <item>{"min_score":86,"size":8,"limits":[40,38,36],"counters":[3,3,2,3],"bases":[21,12,51,15,45,16,62,57,34,46,31]}</item>
+        <item>{"min_score":89,"size":10,"limits":[42,40,38],"counters":[2,4,4,3],"bases":[85,58,83,30,48,61,45,28,94,38,25,65,24]}</item>
+        <item>{"min_score":91,"size":10,"limits":[43,41,39],"counters":[3,3,4,4],"bases":[84,53,38,59,79,56,49,83,80,16,68,67,98,72]}</item>
+        <item>{"min_score":94,"size":9,"limits":[48,46,44],"counters":[2,2,2,3,2],"bases":[8,45,10,2,13,65,62,17,63,0,39]}</item>
+        <item>{"min_score":97,"size":10,"limits":[51,49,47],"counters":[3,2,4,2],"bases":[8,73,90,13,67,97,47,63,65,43,95]}</item>
+        <item>{"min_score":99,"size":7,"limits":[56,53,50],"counters":[3,2,2,3],"bases":[32,20,40,13,48,36,39,24,35,37]}</item>
+        <item>{"min_score":102,"size":7,"limits":[56,53,50],"counters":[2,2,2],"bases":[4,36,0,41,33,29]}</item>
+        <item>{"min_score":105,"size":8,"limits":[56,53,50],"counters":[3,2,3,3],"bases":[28,44,38,56,16,7,29,6,24,31,4]}</item>
     </string-array>
-
-
 
 </resources>
