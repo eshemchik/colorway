@@ -1,18 +1,26 @@
 package com.shemchik.colorway;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ScrollView;
 
+import com.flurry.android.FlurryAgent;
+
 
 public class MainActivity extends Activity{
 
     ScrollView mainView;
     MenuView menuView;
+    public int currentScreen = 0;
+
+    static final int MAIN_SCREEN = 0;
+    static final int MENU_SCREEN = 1;
+    static final int GAME_SCREEN = 2;
+
+    static final String FlurryID = "6NM5BDNQJHGGYYR5GCVM";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +47,38 @@ public class MainActivity extends Activity{
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.init(this, FlurryID);
+        FlurryAgent.onStartSession(this, FlurryID);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (currentScreen == MAIN_SCREEN)
+            super.onBackPressed();
+        else {
+            currentScreen--;
+            if (currentScreen == MAIN_SCREEN)
+                setContentView(R.layout.activity_main);
+            else
+                showMenu();
+        }
+    }
+
     public void onPlayClicked(View view) {
         showMenu();
     }
 
     public void showMenu() {
+        currentScreen = MENU_SCREEN;
         menuView.invalidate();
         setContentView(mainView);
     }

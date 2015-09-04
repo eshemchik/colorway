@@ -2,7 +2,7 @@
     <string name="app_name">Color Way</string>
 
     <string name="playButton_text">PLAY</string>
-    <string name="game_description">Merge blocks of the same color using fewer cells (click on cell to change its color)</string>
+    <string name="game_description">Merge blocks of the same color using fewer cells (click on cell to change its color or "move" color from another cell)</string>
     <string name="need_score">To unlock this level you should have %d stars</string>
     <string name="level_completed">Level completed</string>
     <string name="level_number">Level #%d</string>

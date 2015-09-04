@@ -33,6 +33,7 @@ public class GameView extends View{
     private GraphicFragment backButton = new GraphicFragment();
     private GraphicFragment restartButton = new GraphicFragment();
     private GraphicFragment helpButton = new GraphicFragment();
+    private int lastId = 0;
 
     public GameView(Context context, Level level, GameController parent) {
         super(context);
@@ -164,45 +165,77 @@ public class GameView extends View{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() != MotionEvent.ACTION_DOWN)
-            return false;
-
         int x = Math.round(event.getX());
         int y = Math.round(event.getY());
 
-        if (backButton.isIn(x, y)) {
-            parent.onBack();
-            this.destroyDrawingCache();
-            return true;
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+            if (backButton.isIn(x, y)) {
+                parent.onBack();
+                this.destroyDrawingCache();
+                return true;
+            }
+
+            if (restartButton.isIn(x, y)) {
+                parent.onRestart();
+                this.destroyDrawingCache();
+                return true;
+            }
+
+            if (helpButton.isIn(x, y)) {
+                getContext().setTheme(R.style.AppThemeBase);
+                Toast.makeText(getContext(), R.string.game_description, Toast.LENGTH_LONG).show();
+                return true;
+            }
+
+            int ind = -1;
+            for (int i = 0; i < cells.length && ind == -1; i++)
+                if (x >= cells[i].x && x <= cells[i].x + cellSize)
+                    if (y >= cells[i].y && y <= cells[i].y + cellSize)
+                        ind = i;
+
+            if (ind == -1)
+                return false;
+
+            onCellDown(ind);
+
+        } else {
+            int ind = -1;
+            for (int i = 0; i < cells.length && ind == -1; i++)
+                if (x >= cells[i].x && x <= cells[i].x + cellSize)
+                    if (y >= cells[i].y && y <= cells[i].y + cellSize)
+                        ind = i;
+
+            if (ind == -1)
+                return false;
+
+            if (event.getAction() == MotionEvent.ACTION_UP)
+                onCellUp(ind);
+            else
+                onCellMove(ind);
         }
+        return true;
+    }
 
-        if (restartButton.isIn(x, y)) {
-            parent.onRestart();
-            this.destroyDrawingCache();
-            return true;
+
+    private void onCellDown(int id) {
+        lastId = id;
+    }
+
+    private void onCellMove(int id) {
+        if (!cells[id].isBase) {
+            cells[id].type = cells[lastId].type;
+            this.invalidate();
         }
+    }
 
-        if (helpButton.isIn(x, y)) {
-            getContext().setTheme(R.style.AppThemeBase);
-            Toast.makeText(getContext(), R.string.game_description, Toast.LENGTH_LONG).show();
-            return true;
+    private void onCellUp(int id) {
+        if (id == lastId && !cells[id].isBase) {
+            cells[id].type = (cells[id].type + 1) % (level.counters.length + 1);
+            this.invalidate();
         }
-
-        int ind = -1;
-        for (int i = 0; i < cells.length && ind == -1; i++)
-            if (x >= cells[i].x && x <= cells[i].x + cellSize)
-                if (y >= cells[i].y && y <= cells[i].y + cellSize)
-                    ind = i;
-
-        if (ind == -1 || cells[ind].isBase)
-            return false;
-
-        cells[ind].type = (cells[ind].type + 1) % (level.counters.length + 1);
-        this.invalidate();
 
         check();
-
-        return true;
     }
 
     public int getScore() {

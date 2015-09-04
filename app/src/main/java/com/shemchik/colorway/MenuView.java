@@ -191,6 +191,7 @@ public class MenuView extends View implements GameController{
             return false;
 
         if (backButton.isIn(x, y)) {
+            ((MainActivity)getContext()).currentScreen = MainActivity.MAIN_SCREEN;
             ((Activity)getContext()).setContentView(R.layout.activity_main);
         }
 
@@ -213,6 +214,8 @@ public class MenuView extends View implements GameController{
     }
 
     public void gameStart(int levelId) {
+        ((MainActivity)getContext()).currentScreen = MainActivity.GAME_SCREEN;
+
         CurrentLevel = levelId;
         ((Activity)getContext()).setContentView(new GameView(getContext(), levels[levelId], this));
         String message = String.format(getResources().getString(R.string.level_number), levelId + 1);
@@ -241,6 +244,7 @@ public class MenuView extends View implements GameController{
 
     @Override
     public void onBack() {
+        ((MainActivity)getContext()).currentScreen = MainActivity.MENU_SCREEN;
         ((MainActivity)getContext()).showMenu();
     }
 }

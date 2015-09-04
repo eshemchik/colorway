@@ -3,7 +3,7 @@
     <string name="app_name">Color Way</string>
 
     <string name="playButton_text">ИГРАТЬ</string>
-    <string name="game_description">Соедините все блоки одинаковых цветов в единое целое (кликните по ячейке, чтобы изменить её цвет)</string>
+    <string name="game_description">Соедините все блоки одинаковых цветов в единое целое (кликните по ячейке, чтобы изменить её цвет или "перетащите" цвет из другой ячейки)</string>
     <string name="need_score">Чтобы разблокировать этот уровень вам необходимо набрать %d звёзд</string>
     <string name="level_completed">Уровень пройден</string>
     <string name="level_number">Уровень #%d</string>

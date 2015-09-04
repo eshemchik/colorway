@@ -40,9 +40,9 @@
         <item>{"min_score":91,"size":10,"limits":[43,41,39],"counters":[3,3,4,4],"bases":[84,53,38,59,79,56,49,83,80,16,68,67,98,72]}</item>
         <item>{"min_score":94,"size":9,"limits":[48,46,44],"counters":[2,2,2,3,2],"bases":[8,45,10,2,13,65,62,17,63,0,39]}</item>
         <item>{"min_score":97,"size":10,"limits":[51,49,47],"counters":[3,2,4,2],"bases":[8,73,90,13,67,97,47,63,65,43,95]}</item>
-        <item>{"min_score":99,"size":7,"limits":[56,53,50],"counters":[3,2,2,3],"bases":[32,20,40,13,48,36,39,24,35,37]}</item>
-        <item>{"min_score":102,"size":7,"limits":[56,53,50],"counters":[2,2,2],"bases":[4,36,0,41,33,29]}</item>
-        <item>{"min_score":105,"size":8,"limits":[56,53,50],"counters":[3,2,3,3],"bases":[28,44,38,56,16,7,29,6,24,31,4]}</item>
+        <item>{"min_score":102,"size":9,"limits":[41,39,37],"counters":[3,2,3,2,2],"bases":[14,56,74,39,62,3,40,69,16,44,35,53]}</item>
+        <item>{"min_score":105,"size":10,"limits":[56,53,50],"counters":[2,2,2,2,2],"bases":[76,92,24,83,15,82,55,79,51,99]}</item>
+        <item>{"min_score":108,"size":10,"limits":[65,62,59],"counters":[2,2,2,3,2],"bases":[14,86,0,71,38,77,30,56,62,17,22]}</item>
     </string-array>
 
 </resources>
