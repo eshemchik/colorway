@@ -6,4 +6,5 @@
     <string name="need_score">To unlock this level you should have %d stars</string>
     <string name="level_completed">Level completed</string>
     <string name="level_number">Level #%d</string>
+    <string name="click_to_continue">(click to continue)</string>
 </resources>

@@ -34,6 +34,7 @@ public class GameView extends View{
     private GraphicFragment restartButton = new GraphicFragment();
     private GraphicFragment helpButton = new GraphicFragment();
     private int lastId = 0;
+    private boolean gameEnded = false;
 
     public GameView(Context context, Level level, GameController parent) {
         super(context);
@@ -57,6 +58,15 @@ public class GameView extends View{
             }
 
 
+    }
+
+    private int textSizeByWidth(String text, int width) {
+        float w = width;
+        float baseSize = 64;
+        mPaint.setTextSize(baseSize);
+        float height = baseSize * (w / mPaint.measureText(text));
+        mPaint.setTextSize(height);
+        return Math.round(height);
     }
 
     @Override
@@ -116,20 +126,36 @@ public class GameView extends View{
 
 
         // Drawing cells
-        for (int i = 0; i < level.size; i++)
-            for (int j = 0; j < level.size; j++) {
-                cells[i * size + j].x = j * cellSize + cellLeft;
-                cells[i * size + j].y = i * cellSize + cellTop;
-            }
+        if (!gameEnded) {
+            for (int i = 0; i < level.size; i++)
+                for (int j = 0; j < level.size; j++) {
+                    cells[i * size + j].x = j * cellSize + cellLeft;
+                    cells[i * size + j].y = i * cellSize + cellTop;
+                }
 
-        for (Cell cell : cells) {
-            mPaint.setColor(colors[cell.type]);
-            canvas.drawRect(cell.x, cell.y, cell.x + cellSize, cell.y + cellSize, mPaint);
+            for (Cell cell : cells) {
+                mPaint.setColor(colors[cell.type]);
+                canvas.drawRect(cell.x, cell.y, cell.x + cellSize, cell.y + cellSize, mPaint);
 
-            if (cell.isBase) {
-                mPaint.setColor(colors[0]);
-                canvas.drawRect(cell.x + cellSize / 3, cell.y + cellSize / 3, cell.x + 2 * cellSize / 3, cell.y + 2 * cellSize / 3, mPaint);
+                if (cell.isBase) {
+                    mPaint.setColor(colors[0]);
+                    canvas.drawRect(cell.x + cellSize / 3, cell.y + cellSize / 3, cell.x + 2 * cellSize / 3, cell.y + 2 * cellSize / 3, mPaint);
+                }
             }
+        } else {
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setColor(getResources().getColor(R.color.lightText));
+
+            String text;
+            text = getResources().getString(R.string.level_completed);
+            int textTop = cellTop + clientWidth / 2;
+            int textHeight = textSizeByWidth(text, clientWidth);
+            canvas.drawText(text, cellLeft, textTop, mPaint);
+            textTop += textHeight + stars_padding;
+            text = getResources().getString(R.string.click_to_continue);
+            textHeight = textSizeByWidth(text, clientWidth);
+            canvas.drawText(text, cellLeft, textTop, mPaint);
+            mPaint.setStyle(Paint.Style.FILL);
         }
 
         // Drawing menu
@@ -197,7 +223,10 @@ public class GameView extends View{
             if (ind == -1)
                 return false;
 
-            onCellDown(ind);
+            if (!gameEnded)
+                onCellDown(ind);
+            else
+                parent.onNextGame();
 
         } else {
             int ind = -1;
@@ -226,6 +255,7 @@ public class GameView extends View{
         if (!cells[id].isBase) {
             cells[id].type = cells[lastId].type;
             this.invalidate();
+            check();
         }
     }
 
@@ -308,9 +338,9 @@ public class GameView extends View{
 
         //GAME ENDED
         if (getScore() <= level.limits[0]) {
-            Toast.makeText(getContext(), R.string.level_completed, Toast.LENGTH_SHORT).show();
             parent.onGameEnded(getStarsScore());
-            this.destroyDrawingCache();
+            gameEnded = true;
+            this.invalidate();
         }
     }
 

@@ -7,4 +7,5 @@
     <string name="need_score">Чтобы разблокировать этот уровень вам необходимо набрать %d звёзд</string>
     <string name="level_completed">Уровень пройден</string>
     <string name="level_number">Уровень #%d</string>
+    <string name="click_to_continue">(кликните, чтобы продолжить)</string>
 </resources>

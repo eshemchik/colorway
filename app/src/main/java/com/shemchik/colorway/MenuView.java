@@ -235,7 +235,10 @@ public class MenuView extends View implements GameController{
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(SCORES, string_scores);
         editor.apply();
+    }
 
+    @Override
+    public void onNextGame() {
         if (CurrentLevel == levels.length - 1 || getScore() < levels[CurrentLevel + 1].min_score)
             onBack();
         else
