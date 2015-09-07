@@ -9,4 +9,10 @@
     <dimen name="menuHight">66dp</dimen>
     <dimen name="levelHight">66dp</dimen>
     <dimen name="levelWidth">66dp</dimen>
+    
+    <dimen name="blitz_score">100dp</dimen>
+    <dimen name="blitz_title">24dp</dimen>
+    <dimen name="blitz_width">300dp</dimen>
+    <dimen name="blitz_button_h">66dp</dimen>
+    <dimen name="blitz_button_text">40dp</dimen>
 </resources>

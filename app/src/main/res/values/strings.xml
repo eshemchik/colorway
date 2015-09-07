@@ -2,9 +2,16 @@
     <string name="app_name">Color Way</string>
 
     <string name="playButton_text">PLAY</string>
+    <string name="playOnTimeButton_text">BLITZ GAME</string>
     <string name="game_description">Merge blocks of the same color using fewer cells (click on cell to change its color or "move" color from another cell)</string>
     <string name="need_score">To unlock this level you should have %d stars</string>
     <string name="level_completed">Level completed</string>
+    <string name="levels_completed">Levels completed:</string>
     <string name="level_number">Level #%d</string>
     <string name="click_to_continue">(click to continue)</string>
+    <string name="automatic_level">(Level will be chosen automatically)</string>
+    <string name="timelimit_exceeded">Time is over</string>
+    <string name="your_record">Your record: %d</string>
+    <string name="your_score">Your score: %d</string>
+    <string name="new_record">New record!</string>
 </resources>

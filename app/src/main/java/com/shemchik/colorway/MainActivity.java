@@ -5,7 +5,9 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
 
@@ -14,10 +16,13 @@ public class MainActivity extends Activity{
 
     ScrollView mainView;
     MenuView menuView;
+    BlitzController blitzCtrl;
     public int currentScreen = 0;
+    public GameController.GameType gameType;
 
     static final int MAIN_SCREEN = 0;
     static final int MENU_SCREEN = 1;
+    static final int BLITZ_SCREEN = 1;
     static final int GAME_SCREEN = 2;
 
     static final String FlurryID = "6NM5BDNQJHGGYYR5GCVM";
@@ -29,6 +34,8 @@ public class MainActivity extends Activity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         getTheme().applyStyle(R.style.AppThemeBase, true);
+
+        blitzCtrl = new BlitzController(this);
 
         mainView = new ScrollView(this);
 
@@ -45,6 +52,7 @@ public class MainActivity extends Activity{
         mainView.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         setContentView(R.layout.activity_main);
+        refresh();
     }
 
     @Override
@@ -66,9 +74,10 @@ public class MainActivity extends Activity{
             super.onBackPressed();
         else {
             currentScreen--;
-            if (currentScreen == MAIN_SCREEN)
+            if (currentScreen == MAIN_SCREEN) {
                 setContentView(R.layout.activity_main);
-            else
+                refresh();
+            } else
                 showMenu();
         }
     }
@@ -77,9 +86,21 @@ public class MainActivity extends Activity{
         showMenu();
     }
 
+    public void onBlitzClicked(View view) {
+        currentScreen = BLITZ_SCREEN;
+        gameType = GameController.GameType.TIME;
+        blitzCtrl.startGame();
+    }
+
     public void showMenu() {
         currentScreen = MENU_SCREEN;
+        gameType = GameController.GameType.LEVELS;
         menuView.invalidate();
         setContentView(mainView);
+    }
+
+    public void refresh() {
+        ((TextView)findViewById(R.id.score_text)).setText(String.format(getResources().getString(R.string.your_score), menuView.getScore()));
+        ((TextView)findViewById(R.id.record_text)).setText(String.format(getResources().getString(R.string.your_record), blitzCtrl.getRecord()));
     }
 }

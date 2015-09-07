@@ -193,6 +193,7 @@ public class MenuView extends View implements GameController{
         if (backButton.isIn(x, y)) {
             ((MainActivity)getContext()).currentScreen = MainActivity.MAIN_SCREEN;
             ((Activity)getContext()).setContentView(R.layout.activity_main);
+            ((MainActivity)getContext()).refresh();
         }
 
         int ind = -1;

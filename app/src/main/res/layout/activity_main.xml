@@ -9,7 +9,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
@@ -62,8 +62,42 @@
             android:textColor="@color/darkText"
             android:textStyle="bold"
             style="@style/AppTheme"
-            android:textSize="40dp"
-            android:layout_marginTop="64dp" />
+            android:textSize="36dp"
+            android:layout_marginTop="@dimen/padding" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_score"
+            android:id="@+id/score_text"
+            android:gravity="center"
+            android:textSize="26dp"
+            android:textColor="@color/lightText" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/playOnTimeButton_text"
+            android:id="@+id/playOnTimeButton"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="onBlitzClicked"
+            android:background="@color/greenBackground"
+            android:textColor="@color/darkText"
+            android:textStyle="bold"
+            style="@style/AppTheme"
+            android:textSize="36dp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/your_record"
+            android:id="@+id/record_text"
+            android:gravity="center"
+            android:textSize="26dp"
+            android:textColor="@color/lightText" />
+
     </LinearLayout>
 
 </RelativeLayout>

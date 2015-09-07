@@ -1,5 +1,6 @@
 package com.shemchik.colorway;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameView extends View{
     private Paint mPaint = new Paint();
@@ -34,7 +37,10 @@ public class GameView extends View{
     private GraphicFragment restartButton = new GraphicFragment();
     private GraphicFragment helpButton = new GraphicFragment();
     private int lastId = 0;
-    private boolean gameEnded = false;
+    public boolean gameEnded = false;
+    private int timer;
+    public boolean stopTimer = false;
+    private int gameId;
 
     public GameView(Context context, Level level, GameController parent) {
         super(context);
@@ -57,7 +63,13 @@ public class GameView extends View{
                 ind++;
             }
 
+        if (((MainActivity)context).gameType == GameController.GameType.TIME) {
+            gameId = ((BlitzController)parent).score + 1;
 
+            timer = ((BlitzController)parent).timer;
+            Timer clock = new Timer();
+            clock.schedule(new ClockTask(clock), 0, 1000);
+        }
     }
 
     private int textSizeByWidth(String text, int width) {
@@ -67,6 +79,10 @@ public class GameView extends View{
         float height = baseSize * (w / mPaint.measureText(text));
         mPaint.setTextSize(height);
         return Math.round(height);
+    }
+
+    private GameController.GameType getGameType() {
+        return ((MainActivity)getContext()).gameType;
     }
 
     @Override
@@ -102,28 +118,43 @@ public class GameView extends View{
                 clientWidth - 3 * star.getWidth() / 2 - 2 * stars_padding,
                 clientWidth - star.getWidth() / 2 - stars_padding
         };
-
-        int score = getScore();
-        for (int i = 0; i < 3; i++)
-            canvas.drawBitmap((score <= level.limits[i]) ? star : empty_star, starsLeft[i], starsTop, mPaint);
-
         int score_color;
-        if (score <= level.limits[2])
-            score_color = R.color.goldColor;
-        else if (score <= level.limits[1])
-            score_color = R.color.silverColor;
-        else if (score <= level.limits[0])
-            score_color = R.color.bronzeColor;
-        else
-            score_color = R.color.redColor;
-        score_color = getResources().getColor(score_color);
+
+        if(getGameType() == GameController.GameType.LEVELS) {
+            int score = getScore();
+            for (int i = 0; i < 3; i++)
+                canvas.drawBitmap((score <= level.limits[i]) ? star : empty_star, starsLeft[i], starsTop, mPaint);
+
+            if (score <= level.limits[2])
+                score_color = R.color.goldColor;
+            else if (score <= level.limits[1])
+                score_color = R.color.silverColor;
+            else if (score <= level.limits[0])
+                score_color = R.color.bronzeColor;
+            else
+                score_color = R.color.redColor;
+            score_color = getResources().getColor(score_color);
+        } else
+            score_color = getResources().getColor(R.color.silverColor);
+
         mPaint.setTextSize(star.getHeight());
         mPaint.setColor(score_color);
         mPaint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL));
         mPaint.setStyle(Paint.Style.STROKE);
-        canvas.drawText(Integer.toString(score), padding + stars_padding, starsTop + star.getHeight() - stars_padding, mPaint);
-        mPaint.setStyle(Paint.Style.FILL);
+        String text;
+        if (getGameType() == GameController.GameType.LEVELS)
+            text = Integer.toString(getScore());
+        else
+            text = Integer.toString(timer);
+        canvas.drawText(text, padding + stars_padding, starsTop + star.getHeight() - stars_padding, mPaint);
 
+        if (getGameType() == GameController.GameType.TIME) {
+            text = "#" + Integer.toString(gameId);
+            int text_w = Math.round(mPaint.measureText(text));
+            canvas.drawText(text, padding + clientWidth - stars_padding - text_w, starsTop + star.getHeight() - stars_padding, mPaint);
+        }
+
+        mPaint.setStyle(Paint.Style.FILL);
 
         // Drawing cells
         if (!gameEnded) {
@@ -146,8 +177,10 @@ public class GameView extends View{
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setColor(getResources().getColor(R.color.lightText));
 
-            String text;
-            text = getResources().getString(R.string.level_completed);
+            if (getGameType() == GameController.GameType.LEVELS || timer > 0)
+                text = getResources().getString(R.string.level_completed);
+            else
+                text = getResources().getString(R.string.timelimit_exceeded);
             int textTop = cellTop + clientWidth / 2;
             int textHeight = textSizeByWidth(text, clientWidth);
             canvas.drawText(text, cellLeft, textTop, mPaint);
@@ -198,12 +231,14 @@ public class GameView extends View{
 
             if (backButton.isIn(x, y)) {
                 parent.onBack();
+                stopTimer = true;
                 this.destroyDrawingCache();
                 return true;
             }
 
             if (restartButton.isIn(x, y)) {
                 parent.onRestart();
+                stopTimer = true;
                 this.destroyDrawingCache();
                 return true;
             }
@@ -285,6 +320,8 @@ public class GameView extends View{
     }
 
     public void check() {
+        if (gameEnded)
+            return;
 
         //Graph init
         ArrayList< ArrayList<Integer> > graph = new ArrayList<>();
@@ -337,8 +374,11 @@ public class GameView extends View{
                 return;
 
         //GAME ENDED
-        if (getScore() <= level.limits[0]) {
-            parent.onGameEnded(getStarsScore());
+        if (getScore() <= level.limits[0] || getGameType() == GameController.GameType.TIME) {
+            if (getGameType() == GameController.GameType.LEVELS)
+                parent.onGameEnded(getStarsScore());
+            else
+                parent.onGameEnded(1);
             gameEnded = true;
             this.invalidate();
         }
@@ -350,4 +390,38 @@ public class GameView extends View{
         public boolean isBase = false;
     }
 
+    private class ClockTask extends TimerTask {
+        Timer parent;
+
+        public ClockTask(Timer parent) {
+            super();
+            this.parent = parent;
+        }
+
+        @Override
+        public void run() {
+            ((Activity)getContext()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (gameEnded) {
+                        ((BlitzController)GameView.this.parent).timer = timer;
+                        parent.cancel();
+                    } else if (stopTimer || ((BlitzController)GameView.this.parent).parent.currentScreen != MainActivity.BLITZ_SCREEN) {
+                        parent.cancel();
+                    } else {
+                            timer--;
+                            if (timer == 0) {
+                                GameView.this.parent.onGameEnded(0);
+                                gameEnded = true;
+                                GameView.this.invalidate();
+                                ((BlitzController)GameView.this.parent).timer = timer;
+                                parent.cancel();
+                            }
+                            GameView.this.invalidate();
+
+                    }
+                }
+            });
+        }
+    }
 }

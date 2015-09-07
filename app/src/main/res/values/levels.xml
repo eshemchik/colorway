@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="levelsCount">50</integer>
+    <integer name="blitzTimelimit">100</integer>
 
     <string-array name="levels" translatable="false">
         <item>{"min_score":0,"size":5,"limits":[4,3,2],"counters":[2,2],"bases":[6,8,16,18]}</item>

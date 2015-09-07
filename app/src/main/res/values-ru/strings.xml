@@ -3,9 +3,16 @@
     <string name="app_name">Color Way</string>
 
     <string name="playButton_text">ИГРАТЬ</string>
+    <string name="playOnTimeButton_text">БЛИЦ</string>
     <string name="game_description">Соедините все блоки одинаковых цветов в единое целое (кликните по ячейке, чтобы изменить её цвет или "перетащите" цвет из другой ячейки)</string>
     <string name="need_score">Чтобы разблокировать этот уровень вам необходимо набрать %d звёзд</string>
     <string name="level_completed">Уровень пройден</string>
+    <string name="levels_completed">Уровней пройдено:</string>
     <string name="level_number">Уровень #%d</string>
     <string name="click_to_continue">(кликните, чтобы продолжить)</string>
+    <string name="automatic_level">(Уровень будет выбран автоматически)</string>
+    <string name="timelimit_exceeded">Время вышло</string>
+    <string name="your_record">Ваш рекорд: %d</string>
+    <string name="your_score">Ваш счёт: %d</string>
+    <string name="new_record">Новый рекорд!</string>
 </resources>
