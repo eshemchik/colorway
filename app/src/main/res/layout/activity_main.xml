@@ -43,7 +43,7 @@
                 android:text=" WAY"
                 android:id="@+id/textView2"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@color/goldColor"
+                android:textColor="@color/silverColor"
                 android:textStyle="bold"
                 android:gravity="center|right"
                 android:textSize="48dp" />
@@ -58,12 +58,12 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:onClick="onPlayClicked"
-            android:background="@color/greenBackground"
+            android:background="@color/lightBackgroundColor"
             android:textColor="@color/darkText"
-            android:textStyle="bold"
             style="@style/AppTheme"
             android:textSize="36dp"
-            android:layout_marginTop="@dimen/padding" />
+            android:layout_marginTop="@dimen/padding"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="fill_parent"
@@ -82,12 +82,12 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:onClick="onBlitzClicked"
-            android:background="@color/greenBackground"
+            android:background="@color/lightBackgroundColor"
             android:textColor="@color/darkText"
-            android:textStyle="bold"
             style="@style/AppTheme"
             android:textSize="36dp"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="fill_parent"

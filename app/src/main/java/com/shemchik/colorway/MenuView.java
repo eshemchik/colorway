@@ -117,7 +117,7 @@ public class MenuView extends View implements GameController{
             } else {
                 int color, text_color;
                 if (scores[i] == 0)
-                    color = R.color.greenBackground;
+                    color = R.color.lightBackgroundColor;
                 else if (scores[i] == 1)
                     color = R.color.bronzeColor;
                 else if (scores[i] == 2)
@@ -164,7 +164,7 @@ public class MenuView extends View implements GameController{
             canvas.drawBitmap(bitmap, clientWidth - stars_padding - bitmap.getWidth(), (menuHight - bitmap.getHeight()) / 2, mPaint);
 
             mPaint.setTextSize(bitmap.getHeight());
-            mPaint.setColor(getResources().getColor(R.color.goldColor));
+            mPaint.setColor(getResources().getColor(R.color.lightText));
             mPaint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL));
             mPaint.setStyle(Paint.Style.STROKE);
             int textLeft = clientWidth - stars_padding * 2 - bitmap.getWidth() - Math.round(mPaint.measureText(string_score));

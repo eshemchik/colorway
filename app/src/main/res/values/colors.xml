@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundColor">#2c3e50</color>
-    <color name="lightBackgroundColor">#34495e</color>
-    <color name="goldColor">#F5AB35</color>
-    <color name="silverColor">#BDC3C7</color>
-    <color name="bronzeColor">#A57164</color>
-    <color name="redColor">#e74c3c</color>
-    <color name="lightText">#7f8c8d</color>
-    <color name="darkText">#2c3e50</color>
-    <color name="greenBackground">#27ae60</color>
+    <color name="backgroundColor">#19B5FE</color>
+    <color name="lightBackgroundColor">#2574A9</color>
+    <color name="goldColor">#2ECC71</color>
+    <color name="silverColor">#F7CA18</color>
+    <color name="bronzeColor">#EF4836</color>
+    <color name="redColor">#EF4836</color>
+    <color name="lightText">#fff</color>
+    <color name="darkText">#fff</color>
+    <color name="greenBackground">#11a8ab</color>
     <color name="transparentColor">#0000</color>
 </resources>

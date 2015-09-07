@@ -25,12 +25,12 @@ public class GameView extends View{
     private int size;
     private int cellSize;
     private int[] colors = {
-            Color.rgb(189, 195, 199),
-            Color.rgb(231, 76, 60),
-            Color.rgb(46, 204, 113),
-            Color.rgb(52, 152, 219),
-            Color.rgb(241, 196, 15),
-            Color.rgb(155, 89, 182),
+            Color.rgb(255, 255, 255),
+            Color.parseColor("#EF4836"),
+            Color.parseColor("#2ECC71"),
+            Color.parseColor("#19B5FE"),
+            Color.parseColor("#F7CA18"),
+            Color.parseColor("#BF55EC"),
             Color.rgb(26, 188, 156)
     };
     private GraphicFragment backButton = new GraphicFragment();
@@ -135,7 +135,7 @@ public class GameView extends View{
                 score_color = R.color.redColor;
             score_color = getResources().getColor(score_color);
         } else
-            score_color = getResources().getColor(R.color.silverColor);
+            score_color = getResources().getColor(R.color.lightText);
 
         mPaint.setTextSize(star.getHeight());
         mPaint.setColor(score_color);
