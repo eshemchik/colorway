@@ -75,7 +75,7 @@ public class MenuView extends View implements GameController{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawColor(getResources().getColor(R.color.backgroundColor));
+        canvas.drawColor(ColorController.getColor(ColorController.backgroundColor));
 
         int w = getWidth();
 
@@ -90,7 +90,7 @@ public class MenuView extends View implements GameController{
 
 
 
-        mPaint.setColor(getResources().getColor(R.color.lightBackgroundColor));
+        mPaint.setColor(ColorController.getColor(ColorController.lightBackgroundColor));
         mPaint.setStyle(Paint.Style.FILL);
 
         Bitmap locked_icon = BitmapFactory.decodeResource(getResources(), R.mipmap.locked);
@@ -111,21 +111,20 @@ public class MenuView extends View implements GameController{
 
             // Is locked
             if (getScore() < levels[i].min_score) {
-                mPaint.setColor(getResources().getColor(R.color.lightBackgroundColor));
+                mPaint.setColor(ColorController.getColor(ColorController.lightBackgroundColor));
                 canvas.drawRect(0, 0, levelWidth, levelHight, mPaint);
                 canvas.drawBitmap(locked_icon, (levelWidth - locked_icon.getWidth()) / 2, (levelHight - locked_icon.getHeight()) / 2, mPaint);
             } else {
                 int color, text_color;
                 if (scores[i] == 0)
-                    color = R.color.lightBackgroundColor;
+                    color = ColorController.getColor(ColorController.unlockedLevel);
                 else if (scores[i] == 1)
-                    color = R.color.bronzeColor;
+                    color = ColorController.getColor(ColorController.bronzeColor);
                 else if (scores[i] == 2)
-                    color = R.color.silverColor;
+                    color = ColorController.getColor(ColorController.silverColor);
                 else
-                    color = R.color.goldColor;
-                color = getResources().getColor(color);
-                text_color = getResources().getColor(R.color.darkText);
+                    color = ColorController.getColor(ColorController.goldColor);
+                text_color = ColorController.getColor(ColorController.darkText);
                 mPaint.setColor(color);
                 canvas.drawRect(0, 0, levelWidth, levelHight, mPaint);
                 mPaint.setColor(text_color);
@@ -164,7 +163,7 @@ public class MenuView extends View implements GameController{
             canvas.drawBitmap(bitmap, clientWidth - stars_padding - bitmap.getWidth(), (menuHight - bitmap.getHeight()) / 2, mPaint);
 
             mPaint.setTextSize(bitmap.getHeight());
-            mPaint.setColor(getResources().getColor(R.color.lightText));
+            mPaint.setColor(ColorController.getColor(ColorController.menuText));
             mPaint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL));
             mPaint.setStyle(Paint.Style.STROKE);
             int textLeft = clientWidth - stars_padding * 2 - bitmap.getWidth() - Math.round(mPaint.measureText(string_score));

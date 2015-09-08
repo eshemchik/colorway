@@ -1,13 +1,17 @@
 package com.shemchik.colorway;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 
@@ -18,12 +22,16 @@ public class MainActivity extends Activity{
     MenuView menuView;
     BlitzController blitzCtrl;
     public int currentScreen = 0;
+    private int color_theme;
     public GameController.GameType gameType;
 
     static final int MAIN_SCREEN = 0;
     static final int MENU_SCREEN = 1;
     static final int BLITZ_SCREEN = 1;
     static final int GAME_SCREEN = 2;
+
+    private final String PREFERENCES = "color_way_preferences";
+    private final String COLOR_THEME = "color_theme";
 
     static final String FlurryID = "6NM5BDNQJHGGYYR5GCVM";
 
@@ -53,6 +61,10 @@ public class MainActivity extends Activity{
 
         setContentView(R.layout.activity_main);
         refresh();
+
+        SharedPreferences preferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        color_theme = Integer.valueOf(preferences.getString(COLOR_THEME, "0"));
+        refreshColors();
     }
 
     @Override
@@ -86,6 +98,17 @@ public class MainActivity extends Activity{
         showMenu();
     }
 
+    public void onThemeChange(View view) {
+        color_theme ^= 1;
+
+        SharedPreferences preferences = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(COLOR_THEME, Integer.toString(color_theme));
+        editor.apply();
+
+        refreshColors();
+    }
+
     public void onBlitzClicked(View view) {
         currentScreen = BLITZ_SCREEN;
         gameType = GameController.GameType.TIME;
@@ -102,5 +125,18 @@ public class MainActivity extends Activity{
     public void refresh() {
         ((TextView)findViewById(R.id.score_text)).setText(String.format(getResources().getString(R.string.your_score), menuView.getScore()));
         ((TextView)findViewById(R.id.record_text)).setText(String.format(getResources().getString(R.string.your_record), blitzCtrl.getRecord()));
+        refreshColors();
+    }
+
+    public void refreshColors() {
+        ColorController.setTheme(color_theme);
+        findViewById(R.id.main_layout).setBackgroundColor(ColorController.getColor(ColorController.backgroundColor));
+        findViewById(R.id.themeChange).setBackgroundColor(ColorController.getColor(ColorController.antiBackground));
+        ((Button)findViewById(R.id.playButton)).setBackgroundColor(ColorController.getColor(ColorController.greenBackground));
+        ((Button)findViewById(R.id.playOnTimeButton)).setBackgroundColor(ColorController.getColor(ColorController.greenBackground));
+        ((Button)findViewById(R.id.playButton)).setTextColor(ColorController.getColor(ColorController.buttonText));
+        ((Button)findViewById(R.id.playOnTimeButton)).setTextColor(ColorController.getColor(ColorController.buttonText));
+        ((TextView)findViewById(R.id.score_text)).setTextColor(ColorController.getColor(ColorController.lightText));
+        ((TextView)findViewById(R.id.record_text)).setTextColor(ColorController.getColor(ColorController.lightText));
     }
 }

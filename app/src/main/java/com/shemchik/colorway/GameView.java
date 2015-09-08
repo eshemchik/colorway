@@ -28,7 +28,7 @@ public class GameView extends View{
             Color.rgb(255, 255, 255),
             Color.parseColor("#EF4836"),
             Color.parseColor("#2ECC71"),
-            Color.parseColor("#19B5FE"),
+            Color.parseColor("#22A7F0"),
             Color.parseColor("#F7CA18"),
             Color.parseColor("#BF55EC"),
             Color.rgb(26, 188, 156)
@@ -104,11 +104,11 @@ public class GameView extends View{
 
         // Drawing background
         mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(getResources().getColor(R.color.backgroundColor));
+        mPaint.setColor(ColorController.getColor(ColorController.backgroundColor));
         canvas.drawPaint(mPaint);
 
         // Drawing score
-        mPaint.setColor(getResources().getColor(R.color.lightBackgroundColor));
+        mPaint.setColor(ColorController.getColor(ColorController.lightBackgroundColor));
         canvas.drawRect(padding, padding, padding + clientWidth, padding + scoreHight, mPaint);
         Bitmap star = BitmapFactory.decodeResource(getResources(), R.mipmap.star);
         Bitmap empty_star = BitmapFactory.decodeResource(getResources(), R.mipmap.empty_star);
@@ -126,16 +126,15 @@ public class GameView extends View{
                 canvas.drawBitmap((score <= level.limits[i]) ? star : empty_star, starsLeft[i], starsTop, mPaint);
 
             if (score <= level.limits[2])
-                score_color = R.color.goldColor;
+                score_color = ColorController.getColor(ColorController.goldColor);
             else if (score <= level.limits[1])
-                score_color = R.color.silverColor;
+                score_color = ColorController.getColor(ColorController.silverColor);
             else if (score <= level.limits[0])
-                score_color = R.color.bronzeColor;
+                score_color = ColorController.getColor(ColorController.bronzeColor);
             else
-                score_color = R.color.redColor;
-            score_color = getResources().getColor(score_color);
+                score_color = ColorController.getColor(ColorController.redColor);
         } else
-            score_color = getResources().getColor(R.color.lightText);
+            score_color = ColorController.getColor(ColorController.lightText);
 
         mPaint.setTextSize(star.getHeight());
         mPaint.setColor(score_color);
@@ -175,7 +174,7 @@ public class GameView extends View{
             }
         } else {
             mPaint.setStyle(Paint.Style.STROKE);
-            mPaint.setColor(getResources().getColor(R.color.lightText));
+            mPaint.setColor(ColorController.getColor(ColorController.lightText));
 
             if (getGameType() == GameController.GameType.LEVELS || timer > 0)
                 text = getResources().getString(R.string.level_completed);
@@ -193,7 +192,7 @@ public class GameView extends View{
 
         // Drawing menu
         canvas.translate(padding, menuTop);
-        mPaint.setColor(getResources().getColor(R.color.lightBackgroundColor));
+        mPaint.setColor(ColorController.getColor(ColorController.lightBackgroundColor));
         canvas.drawRect(0, 0, clientWidth, menuHight, mPaint);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.restart);
         canvas.drawBitmap(bitmap, (clientWidth - bitmap.getWidth()) / 2, (menuHight - bitmap.getHeight()) / 2, mPaint);
